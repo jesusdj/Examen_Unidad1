@@ -2,8 +2,10 @@ package Formularios;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class frmCalculo extends JFrame {
+public class frmCalculo extends JFrame implements ActionListener {
     //objetos del formulario
 
      JPanel Panel;
@@ -30,18 +32,21 @@ public class frmCalculo extends JFrame {
     public frmCalculo(){
 
         this.setLayout(new BorderLayout());
+        GridBagConstraints Restricciones = new GridBagConstraints();
+
+
 
         Panel =new JPanel();
         Panel2=new JPanel();
 
-        Panel.setLayout(new BoxLayout(Panel,BoxLayout.Y_AXIS));
-        Panel.setLayout(new BoxLayout(Panel,BoxLayout.Y_AXIS));
-        Panel2.setLayout(new BoxLayout(Panel2,BoxLayout.PAGE_AXIS));
+        Panel.setLayout(new GridBagLayout());
+
+        Panel2.setLayout(new BoxLayout(Panel2,BoxLayout.X_AXIS));
 
         // Propiedades de formulario
         setTitle("Programa de calculo de Velocidad");
-        setResizable(true);
-        setSize(360,300);
+        setResizable(false);
+        setSize(565,120);
         //setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -50,47 +55,50 @@ public class frmCalculo extends JFrame {
 
 
         lblVelocidad = new JLabel("Velocidad");
-        TxtVelocidad = new JTextField(10);
+        TxtVelocidad = new JTextField(12);
         lblDistancia = new JLabel("Distancia");
-        TxtDistancia = new JTextField(10);
+        TxtDistancia = new JTextField(12);
         lblTiempo = new JLabel("Tiempo");
-        TxtTiempo = new JTextField(10);
+        TxtTiempo = new JTextField(14);
 
-        lblResultado= new JLabel("Resultado");
-        TxtResultado= new JTextField(10);
+       /* lblResultado= new JLabel("Resultado");
+        TxtResultado= new JTextField(10);*/
         btnVelocidad = new JButton("Calcular Velocidad");
-        btnDistancia = new JButton("Calcular D");
-        btnTiempo = new JButton("Calcular T");
+        btnDistancia = new JButton("Calcular Distancia");
+        btnTiempo = new JButton("Calcular Tiempo");
 
         //Se añaden los paneles al JFrame
         this.add(Panel,BorderLayout.WEST);
-        this.add(Panel2,BorderLayout.EAST);
+        this.add(Panel2,BorderLayout.SOUTH);
 
 
         //Propiedades de los onbjetos
-        Panel.setBackground(Color.ORANGE);
-        Panel2.setBackground(Color.ORANGE);
+
+
+        Panel.setBackground(Color.DARK_GRAY);
+        Panel2.setBackground(Color.DARK_GRAY);
 
 
         // Adicionar objetos al formulario
 
 
-       Panel. add(lblVelocidad);
+       Panel. add(lblVelocidad).setForeground(Color.ORANGE);
        Panel.add(TxtVelocidad);
-       Panel.add(lblDistancia);
+       Panel.add(lblDistancia).setForeground(Color.ORANGE);
        Panel.add(TxtDistancia);
-       Panel.add(lblTiempo);
+       Panel.add(lblTiempo).setForeground(Color.ORANGE);
        Panel.add(TxtTiempo);
 
-        Panel2.add(Box.createRigidArea(new Dimension(100,5))).setBackground(Color.ORANGE);
 
-       Panel2.add(lblResultado);
-       Panel2.add(TxtResultado);
+
+
+
        Panel2.add(btnVelocidad);
-        Panel2.add(Box.createRigidArea(new Dimension(100,5))).setBackground(Color.ORANGE);
        Panel2.add(btnDistancia);
-        Panel2.add(Box.createRigidArea(new Dimension(100,5))).setBackground(Color.ORANGE);
        Panel2.add(btnTiempo);
+
+
+
 
 
 
@@ -126,8 +134,55 @@ public class frmCalculo extends JFrame {
 
 
 
+        this.btnVelocidad.addActionListener(this);
+        this.btnDistancia.addActionListener(this);
+        this.btnTiempo.addActionListener(this);
 
 
+
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    if(e.getSource().equals(btnVelocidad)){
+
+        double n1 = Double.parseDouble(TxtDistancia.getText());
+        double n2= Double.parseDouble(TxtTiempo.getText());
+        double Vel = n1/n2;
+
+
+        String valorTotal = Double.toString(Vel);
+        TxtVelocidad.setText(valorTotal);
+
+            }
+
+
+    if(e.getSource().equals(btnDistancia)){
+        double n1 = Double.parseDouble(TxtVelocidad.getText());
+        double n2= Double.parseDouble(TxtTiempo.getText());
+        double Dist = n1*n2;
+
+       String valorTotal = Double.toString(Dist);
+        TxtDistancia.setText(valorTotal);
+
+
+
+    }
+
+
+    if(e.getSource().equals(btnTiempo)){
+
+        double n1 = Double.parseDouble(TxtVelocidad.getText());
+        double n2= Double.parseDouble(TxtDistancia.getText());
+        double Tiemp = n2/n1;
+
+
+        String valorTotal = Double.toString(Tiemp);
+        TxtTiempo.setText(valorTotal);
+
+    }
 
 
     }
